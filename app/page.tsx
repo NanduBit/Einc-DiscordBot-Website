@@ -546,7 +546,7 @@ export default function LandingPage() {
                   <span className="sr-only">Discord</span>
                 </Link>
                 <Link
-                  href="https://github.com/nanduwastaken"
+                  href="https://github.com/NanduBit"
                   className="text-muted-foreground hover:text-primary"
                   target="_blank"
                   rel="noopener noreferrer"
