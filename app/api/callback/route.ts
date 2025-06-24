@@ -45,7 +45,7 @@ export async function GET(request: Request) {
       tokenData.scope.includes("guilds.join")
     )
   ) {
-    return NextResponse.redirect(new URL('/api/login', request.url));
+    return NextResponse.redirect(new URL("/api/login", request.url));
   }
 
   const userInfoResponse = await fetch("https://discord.com/api/users/@me", {
@@ -80,13 +80,17 @@ export async function GET(request: Request) {
     (guildObj: { id: string }) => guildObj.id === guild
   );
   if (!guildMember) {
-    const userGuildJoinResponse = await fetch(
+    await fetch(
       `https://discord.com/api/guilds/${guild}/members/${userInfo.id}`,
       {
         method: "PUT",
         headers: {
-          Authorization: `${tokenData.token_type} ${tokenData.access_token}`,
+          "Content-Type": "application/json",
+          Authorization: `Bot ${process.env.TOKEN}`,
         },
+        body: JSON.stringify({
+          access_token: tokenData.access_token,
+        }),
       }
     );
   }
@@ -123,7 +127,7 @@ export async function GET(request: Request) {
   }
 
   // Create response and set cookie
-  const response = NextResponse.redirect(new URL('/', request.url));
+  const response = NextResponse.redirect(new URL("/", request.url));
 
   response.cookies.set("session", sessionToken, {
     httpOnly: true,
