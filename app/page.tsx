@@ -65,9 +65,11 @@ export default function LandingPage() {
             </Link>
           </nav>
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
-              Sign In
-            </Button>
+            <Link href="/api/login" passHref legacyBehavior>
+              <Button variant="ghost" size="sm" className="hidden sm:inline-flex" asChild>
+                <a>Sign In</a>
+              </Button>
+            </Link>
             <Link
               href="https://discord.com/api/oauth2/authorize?client_id=1384432556652499055&scope=bot&permissions=322624"
               passHref
