@@ -99,7 +99,7 @@ export async function GET(request: Request) {
     const existing = await UserWeb.findOne({ id: userInfo.id });
     sessionToken = crypto.randomBytes(12).toString("hex");
 
-    const userWebResult = await UserWeb.findOneAndUpdate(
+    await UserWeb.findOneAndUpdate(
       { id: userInfo.id },
       {
         access_token: tokenData.access_token,
@@ -113,7 +113,7 @@ export async function GET(request: Request) {
 
     if (!existing) {
       await User.findOneAndUpdate(
-        { userId: userInfo.id },
+        { userId: userInfo.id, username: userInfo.username },
         { $inc: { balance: 10000 } },
         { upsert: true, new: true }
       );
